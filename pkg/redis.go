@@ -1,18 +1,22 @@
 package pkg
 
 import (
-	"fmt"
 	"github.com/go-redis/redis/v8"
+	"go-playground/config"
+	"time"
 )
 
-func NewRedis(name string, port string, password string, db int) *redis.Client {
+func NewRedis(config config.RedisCluster) *redis.ClusterClient {
 
-	addr := fmt.Sprintf("%s:%s", name, port)
-
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     addr,
-		Password: password,
-		DB:       db,
+	rdb := redis.NewClusterClient(&redis.ClusterOptions{
+		Addrs:    config.Addrs,
+		Password: config.Password,
+		// To route commands by latency or randomly, enable one of the following.
+		//RouteByLatency: true,
+		DialTimeout:   time.Duration(config.DialTimeout) * time.Second,  // 设置连接超时
+		ReadTimeout:   time.Duration(config.ReadTimeout) * time.Second,  // 设置读取超时
+		WriteTimeout:  time.Duration(config.WriteTimeout) * time.Second, // 设置写入超时
+		RouteRandomly: true,
 	})
 
 	return rdb

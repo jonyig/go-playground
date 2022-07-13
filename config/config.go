@@ -10,16 +10,17 @@ const defaultPath = "./config/config.json"
 type (
 	// Config -.
 	Config struct {
-		Redis Redis `json:"redis"`
-		MySQL MySQL `json:"mysql"`
+		RedisCluster RedisCluster `json:"redis-cluster"`
+		MySQL        MySQL        `json:"mysql"`
 	}
 
-	// Redis -.
-	Redis struct {
-		Name     string `env-required:"true" json:"name"`
-		Port     string `env-required:"true" json:"port"`
-		Password string `env-required:"true" json:"password"`
-		Db       int    `env-default:"1" json:"db"`
+	// RedisCluster Redis-cluster -.
+	RedisCluster struct {
+		Addrs        []string `env-required:"true" json:"addrs"`
+		Password     string   `env-required:"true" json:"password"`
+		DialTimeout  int      `env-default:"10" json:"dialTimeout"`
+		ReadTimeout  int      `env-default:"10" json:"readTimeout"`
+		WriteTimeout int      `env-default:"10" json:"writeTimeout"`
 	}
 	// MySQL -.
 	MySQL struct {
