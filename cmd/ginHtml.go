@@ -21,9 +21,16 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		r := gin.Default()
+		r.LoadHTMLGlob("service/gin-html/template/*")
 		r.GET("/ping", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{
 				"message": "pong",
+			})
+		})
+
+		r.GET("/test", func(c *gin.Context) {
+			c.HTML(http.StatusOK, "index.html", gin.H{
+				"title": "Main website",
 			})
 		})
 		r.Run()
