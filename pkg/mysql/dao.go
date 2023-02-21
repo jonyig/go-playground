@@ -2,7 +2,7 @@ package mysql
 
 import (
 	"fmt"
-	"go-leetcode/config"
+	"go-playground/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
