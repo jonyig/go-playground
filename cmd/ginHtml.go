@@ -22,6 +22,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		r := gin.Default()
 		r.LoadHTMLGlob("service/gin-html/template/*")
+		r.Static("/assetPath", "service/gin-html/asset")
 		r.GET("/ping", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{
 				"message": "pong",
@@ -29,7 +30,7 @@ to quickly create a Cobra application.`,
 		})
 
 		r.GET("/test", func(c *gin.Context) {
-			c.HTML(http.StatusOK, "index.html", gin.H{
+			c.HTML(http.StatusOK, "index.tmpl", gin.H{
 				"title": "Main website",
 			})
 		})
