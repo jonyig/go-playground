@@ -6,6 +6,7 @@ package cmd
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
+	"go-playground/service/gin-html/handler"
 	"net/http"
 )
 
@@ -22,6 +23,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		r := gin.Default()
 		r.LoadHTMLGlob("service/gin-html/template/*")
+		r.HTMLRender = handler.CreateMyRender()
 		r.Static("/assetPath", "service/gin-html/asset")
 		r.GET("/ping", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{
@@ -29,11 +31,7 @@ to quickly create a Cobra application.`,
 			})
 		})
 
-		r.GET("/test", func(c *gin.Context) {
-			c.HTML(http.StatusOK, "index.tmpl", gin.H{
-				"title": "Main website",
-			})
-		})
+		r.GET("/test", handler.Index)
 		r.Run()
 	},
 }
