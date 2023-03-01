@@ -1,10 +1,15 @@
 package repository
 
+import "go-playground/service/wire-practice/infra"
+
 type HttpRepository struct {
+	client *infra.HttpClient
 }
 
-func NewHttpRepository() *HttpRepository {
-	return &HttpRepository{}
+func NewHttpRepository(client *infra.HttpClient) *HttpRepository {
+	return &HttpRepository{
+		client: client,
+	}
 }
 
 func (h *HttpRepository) Get() string {
