@@ -27,14 +27,12 @@ to quickly create a Cobra application.`,
 				"message": "pong",
 			})
 		})
-		InitTodoModule(r)
+		di.CreateTodoHandler(r)
 		r.Run()
 	},
 }
 
 func InitTodoModule(r *gin.Engine) {
-	todoHandler := di.CreateTodoHandler()
-	r.GET("/todo", todoHandler.Get)
 }
 
 func init() {

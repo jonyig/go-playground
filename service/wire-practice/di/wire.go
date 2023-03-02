@@ -4,10 +4,12 @@
 package di
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/google/wire"
+
 	"go-playground/service/wire-practice/handler"
 )
 
-func CreateTodoHandler() *handler.TodoHandler {
+func InitTodoHandler(r *gin.Engine) *handler.TodoHandler {
 	panic(wire.Build(todoProviderSet))
 }

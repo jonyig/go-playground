@@ -14,10 +14,14 @@ func NewTodoRoute(h *TodoHandler, r *gin.Engine) {
 	r.GET("/todo", h.Get)
 }
 
-func NewTodoHandler(userCase *usercase.TodoUserCase) *TodoHandler {
-	return &TodoHandler{
+func NewTodoHandler(r *gin.Engine, userCase *usercase.TodoUserCase) *TodoHandler {
+	h := &TodoHandler{
 		TodoUserCase: userCase,
 	}
+
+	NewTodoRoute(h, r)
+
+	return h
 }
 
 func (t *TodoHandler) Get(c *gin.Context) {

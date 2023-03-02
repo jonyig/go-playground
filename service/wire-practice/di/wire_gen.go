@@ -7,6 +7,7 @@
 package di
 
 import (
+	"github.com/gin-gonic/gin"
 	"go-playground/service/wire-practice/handler"
 	"go-playground/service/wire-practice/infra"
 	"go-playground/service/wire-practice/repository"
@@ -15,12 +16,12 @@ import (
 
 // Injectors from wire.go:
 
-func CreateTodoHandler() *handler.TodoHandler {
+func CreateTodoHandler(r *gin.Engine) *handler.TodoHandler {
 	mongoClient := infra.GetMongoClient()
 	todoRepository := repository.NewTodoRepository(mongoClient)
 	httpClient := infra.GetHttpClient()
 	httpRepository := repository.NewHttpRepository(httpClient)
 	todoUserCase := usercase.NewTodoUserCase(todoRepository, httpRepository)
-	todoHandler := handler.NewTodoHandler(todoUserCase)
+	todoHandler := handler.NewTodoHandler(r, todoUserCase)
 	return todoHandler
 }
