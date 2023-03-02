@@ -25,4 +25,4 @@ func (t *TodoHandler) Get(c *gin.Context) {
 	return
 }
 
-var TodoProviderSet = wire.NewSet(NewTodoHandler)
+var TodoProviderSet = wire.NewSet(NewTodoHandler, NewTodoRoute)
