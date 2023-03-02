@@ -7,7 +7,7 @@ import (
 )
 
 type TodoHandler struct {
-	TodoUserCase *usercase.TodoUserCase
+	TodoUserCase usercase.TodoUserCaseInterface
 }
 
 func NewTodoRoute(h *TodoHandler, r *gin.Engine) {

@@ -6,6 +6,10 @@ import (
 	"go-playground/service/wire-practice/repository"
 )
 
+type TodoUserCaseInterface interface {
+	Get() string
+}
+
 type TodoUserCase struct {
 	TodoRepository *repository.TodoRepository
 	HttpRepository *repository.HttpRepository
