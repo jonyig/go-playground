@@ -5,6 +5,10 @@ import (
 	"go-playground/service/wire-practice/infra"
 )
 
+type TodoRepositoryInterface interface {
+	Get() string
+}
+
 type TodoRepository struct {
 	client *infra.MongoClient
 }

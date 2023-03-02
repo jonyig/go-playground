@@ -11,3 +11,6 @@ wire-pracetice:
 	$(run-mail) wirePractice
 commit-push:
 	git add . && git commit -m "update" && git push origin master
+
+make wire:
+	wire ./...

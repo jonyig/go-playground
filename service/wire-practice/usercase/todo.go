@@ -11,8 +11,8 @@ type TodoUserCaseInterface interface {
 }
 
 type TodoUserCase struct {
-	TodoRepository *repository.TodoRepository
-	HttpRepository *repository.HttpRepository
+	TodoRepository repository.TodoRepositoryInterface
+	HttpRepository repository.HttpRepositoryInterface
 }
 
 func NewTodoUserCase(
