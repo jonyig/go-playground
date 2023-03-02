@@ -27,7 +27,7 @@ to quickly create a Cobra application.`,
 				"message": "pong",
 			})
 		})
-		di.CreateTodoHandler(r)
+		di.InitTodoHandler(r)
 		r.Run()
 	},
 }

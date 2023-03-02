@@ -16,7 +16,7 @@ import (
 
 // Injectors from wire.go:
 
-func CreateTodoHandler(r *gin.Engine) *handler.TodoHandler {
+func InitTodoHandler(r *gin.Engine) *handler.TodoHandler {
 	mongoClient := infra.GetMongoClient()
 	todoRepository := repository.NewTodoRepository(mongoClient)
 	httpClient := infra.GetHttpClient()
