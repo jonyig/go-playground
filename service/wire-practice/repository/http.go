@@ -1,6 +1,9 @@
 package repository
 
-import "go-playground/service/wire-practice/infra"
+import (
+	"github.com/google/wire"
+	"go-playground/service/wire-practice/infra"
+)
 
 type HttpRepository struct {
 	client *infra.HttpClient
@@ -15,3 +18,5 @@ func NewHttpRepository(client *infra.HttpClient) *HttpRepository {
 func (h *HttpRepository) Get() string {
 	return "123"
 }
+
+var HttpProviderSet = wire.NewSet(NewHttpRepository)

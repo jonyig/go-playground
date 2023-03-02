@@ -2,6 +2,7 @@ package usercase
 
 import (
 	"fmt"
+	"github.com/google/wire"
 	"go-playground/service/wire-practice/repository"
 )
 
@@ -27,3 +28,5 @@ func (t *TodoUserCase) Get() string {
 		t.HttpRepository.Get(),
 	)
 }
+
+var TodoProviderSet = wire.NewSet(NewTodoUserCase)

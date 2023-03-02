@@ -1,6 +1,9 @@
 package repository
 
-import "go-playground/service/wire-practice/infra"
+import (
+	"github.com/google/wire"
+	"go-playground/service/wire-practice/infra"
+)
 
 type TodoRepository struct {
 	client *infra.MongoClient
@@ -15,3 +18,5 @@ func NewTodoRepository(client *infra.MongoClient) *TodoRepository {
 func (t *TodoRepository) Get() string {
 	return "789"
 }
+
+var MongoProviderSet = wire.NewSet(NewTodoRepository)

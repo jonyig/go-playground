@@ -1,7 +1,11 @@
 package infra
 
+import "github.com/google/wire"
+
 type MongoClient struct{}
 
-func NewMongoClient() *MongoClient {
+func GetMongoClient() *MongoClient {
 	return &MongoClient{}
 }
+
+var MongoProviderSet = wire.NewSet(GetMongoClient)

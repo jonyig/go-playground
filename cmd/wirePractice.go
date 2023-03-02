@@ -6,10 +6,7 @@ package cmd
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
-	"go-playground/service/wire-practice/handler"
-	"go-playground/service/wire-practice/infra"
-	"go-playground/service/wire-practice/repository"
-	"go-playground/service/wire-practice/usercase"
+	"go-playground/service/wire-practice/di"
 	"net/http"
 )
 
@@ -36,12 +33,7 @@ to quickly create a Cobra application.`,
 }
 
 func InitTodoModule(r *gin.Engine) {
-	mongo := infra.NewMongoClient()
-	http := infra.NewHttpClient()
-	httpRepo := repository.NewHttpRepository(http)
-	todoRepo := repository.NewTodoRepository(mongo)
-	usercase := usercase.NewTodoUserCase(todoRepo, httpRepo)
-	todoHandler := handler.NewTodoHandler(usercase)
+	todoHandler := di.CreateTodoHandler()
 	r.GET("/todo", todoHandler.Get)
 }
 
