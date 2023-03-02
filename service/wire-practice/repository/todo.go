@@ -16,7 +16,7 @@ func NewTodoRepository(client *infra.MongoClient) *TodoRepository {
 }
 
 func (t *TodoRepository) Get() string {
-	return "789"
+	return "78913"
 }
 
 var MongoProviderSet = wire.NewSet(NewTodoRepository)

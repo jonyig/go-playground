@@ -16,7 +16,7 @@ func NewHttpRepository(client *infra.HttpClient) *HttpRepository {
 }
 
 func (h *HttpRepository) Get() string {
-	return "123"
+	return "123123"
 }
 
 var HttpProviderSet = wire.NewSet(NewHttpRepository)
