@@ -19,12 +19,16 @@ func GetRemoteUrl() *url.URL {
 
 	return remote
 }
+func CreateRouter(r *gin.Engine, h *handler) {
+	r.Any("/*proxyPath", h.ProxyHandler)
+}
 
 func CreateHandler(r *gin.Engine, remoteHost *url.URL) *handler {
 	h := &handler{
 		remoteHost: remoteHost,
 	}
 
+	CreateRouter(r, h)
 	r.Any("/*proxyPath", h.ProxyHandler)
 
 	return h
