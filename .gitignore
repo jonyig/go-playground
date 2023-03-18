@@ -2,3 +2,4 @@
 /config/config.json
 vendor
 go-playground
+.vscode/

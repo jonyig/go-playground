@@ -7,18 +7,38 @@ import (
 	"net/url"
 )
 
-func ProxyHandler(c *gin.Context) {
+type handler struct {
+	remoteHost *url.URL
+}
+
+func GetRemoteUrl() *url.URL {
 	remote, err := url.Parse("http://localhost:8081/")
 	if err != nil {
 		panic(err)
 	}
-	proxy := httputil.NewSingleHostReverseProxy(remote)
+
+	return remote
+}
+
+func CreateHandler(r *gin.Engine, remoteHost *url.URL) *handler {
+	h := &handler{
+		remoteHost: remoteHost,
+	}
+
+	r.Any("/*proxyPath", h.ProxyHandler)
+
+	return h
+
+}
+
+func (h *handler) ProxyHandler(c *gin.Context) {
+	proxy := httputil.NewSingleHostReverseProxy(h.remoteHost)
 	proxy.Director = func(req *http.Request) {
 		//b, _ := ioutil.ReadAll(req.Body)
 		//fmt.Println(string(b))
-		req.Host = remote.Host
-		req.URL.Scheme = remote.Scheme
-		req.URL.Host = remote.Host
+		req.Host = h.remoteHost.Host
+		req.URL.Scheme = h.remoteHost.Scheme
+		req.URL.Host = h.remoteHost.Host
 		//...£
 	}
 	proxy.ServeHTTP(c.Writer, c.Request)

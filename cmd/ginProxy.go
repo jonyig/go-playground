@@ -24,7 +24,11 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("ginProxy called")
 		r := gin.Default()
-		r.Any("/*proxyPath", handler.ProxyHandler)
+
+		handler.CreateHandler(
+			r,
+			handler.GetRemoteUrl(),
+		)
 
 		r.Run(":8080")
 	},
