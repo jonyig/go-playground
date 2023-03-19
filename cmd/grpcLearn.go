@@ -15,7 +15,8 @@ import (
 )
 
 const (
-	port = ":50051"
+	port    = ":50051"
+	address = "localhost:50051"
 )
 
 // grpcServerCmd represents the grpcLearn command
@@ -29,7 +30,7 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("grpcLearn called")
+		fmt.Println("grpcServer called")
 
 		lis, err := net.Listen("tcp", port)
 		if err != nil {
@@ -44,6 +45,27 @@ to quickly create a Cobra application.`,
 	},
 }
 
+var grpcClientCmd = &cobra.Command{
+	Use: "grpcClient",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("grpcClient called")
+
+		conn, err := grpc.Dial(address, grpc.WithInsecure())
+		if err != nil {
+			log.Fatalf("did not connect: %v", err)
+		}
+		defer conn.Close()
+		c := pb.NewHelloWorldClient(conn)
+
+		name := "World"
+		r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: name})
+		if err != nil {
+			log.Fatalf("could not greet: %v", err)
+		}
+		log.Printf("Greeting: %s", r.GetMessage())
+	},
+}
+
 type server struct {
 	pb.UnimplementedHelloWorldServer
 }
@@ -55,6 +77,7 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 
 func init() {
 	rootCmd.AddCommand(grpcServerCmd)
+	rootCmd.AddCommand(grpcClientCmd)
 
 	// Here you will define your flags and configuration settings.
 
