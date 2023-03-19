@@ -29,7 +29,6 @@ func CreateHandler(r *gin.Engine, remoteHost *url.URL) *handler {
 	}
 
 	CreateRouter(r, h)
-	r.Any("/*proxyPath", h.ProxyHandler)
 
 	return h
 
