@@ -3,3 +3,5 @@
 vendor
 go-playground
 .vscode/
+
+.DS_Store
