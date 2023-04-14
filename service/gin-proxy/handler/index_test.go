@@ -49,6 +49,29 @@ func Test_handler_ProxyHandler(t *testing.T) {
 	assert.Equal(t, expected2, w2.Body.String())
 }
 
+func RedirectHandler(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "https://google.com", http.StatusFound)
+}
+
+func Test_handler_ProxyHandler_redirect(t *testing.T) {
+	backend := httptest.NewServer(http.HandlerFunc(RedirectHandler))
+	defer backend.Close()
+
+	backendURL, err := url.Parse(backend.URL)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	h := handler{remoteHost: backendURL}
+
+	w := CreateTestResponseRecorder()
+	c, _ := gin.CreateTestContext(w)
+	c.Request, _ = http.NewRequest("GET", "/", nil)
+
+	h.ProxyHandler(c)
+
+}
+
 type TestResponseRecorder struct {
 	*httptest.ResponseRecorder
 	closeChannel chan bool
