@@ -10,9 +10,9 @@ func Test_getUserOrders(t *testing.T) {
 	monkey.Patch(getAdmin, func() string {
 		return "test"
 	})
+	defer monkey.Unpatch(getAdmin)
 	orders := getUsers()
 
-	monkey.Unpatch(getAdmin)
 	expected := []string{"test"}
 	assert.Equal(t, expected, orders)
 }
