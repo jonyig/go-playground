@@ -1,5 +1,5 @@
 package other_folder
 
-func getAdmin1() string {
+func GetAdmin1() string {
 	return "admin1"
 }
