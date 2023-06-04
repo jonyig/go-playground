@@ -13,8 +13,15 @@ func Test_instance(t *testing.T) {
 		return "test"
 	})
 
+	defer monkey.UnpatchInstanceMethod(reflect.TypeOf(te), "A")
 	test := instance()
 	expected := "test"
+
+	assert.Equal(t, expected, test)
+}
+func Test_instance1(t *testing.T) {
+	test := instance()
+	expected := "aa"
 
 	assert.Equal(t, expected, test)
 }
