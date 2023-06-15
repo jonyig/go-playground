@@ -2,7 +2,7 @@ package monkey_learn
 
 import (
 	"bou.ke/monkey"
-	gomonkey "github.com/agiledragon/gomonkey/v2"
+	"github.com/agiledragon/gomonkey/v2"
 	"github.com/stretchr/testify/assert"
 	other_folder "go-playground/service/monkey-learn/other-folder"
 	"testing"

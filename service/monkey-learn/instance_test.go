@@ -2,6 +2,7 @@ package monkey_learn
 
 import (
 	"bou.ke/monkey"
+	"github.com/agiledragon/gomonkey/v2"
 	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
@@ -14,6 +15,19 @@ func Test_instance(t *testing.T) {
 	})
 
 	defer monkey.UnpatchInstanceMethod(reflect.TypeOf(te), "A")
+	test := instance()
+	expected := "test"
+
+	assert.Equal(t, expected, test)
+}
+
+func Test_instance_gomonkey(t *testing.T) {
+	var te *test
+	patches := gomonkey.ApplyMethodFunc(te, "A", func() string {
+		return "test"
+	})
+
+	defer patches.Reset()
 	test := instance()
 	expected := "test"
 
