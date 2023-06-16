@@ -1,25 +1,23 @@
 package monkey_learn
 
 import (
-	"bou.ke/monkey"
 	"github.com/agiledragon/gomonkey/v2"
 	"github.com/stretchr/testify/assert"
-	"reflect"
 	"testing"
 )
 
-func Test_instance(t *testing.T) {
-	var te *test
-	monkey.PatchInstanceMethod(reflect.TypeOf(te), "A", func(_ *test) string {
-		return "test"
-	})
-
-	defer monkey.UnpatchInstanceMethod(reflect.TypeOf(te), "A")
-	test := instance()
-	expected := "test"
-
-	assert.Equal(t, expected, test)
-}
+//func Test_instance(t *testing.T) {
+//	var te *test
+//	monkey.PatchInstanceMethod(reflect.TypeOf(te), "A", func(_ *test) string {
+//		return "test"
+//	})
+//
+//	defer monkey.UnpatchInstanceMethod(reflect.TypeOf(te), "A")
+//	test := instance()
+//	expected := "test"
+//
+//	assert.Equal(t, expected, test)
+//}
 
 func Test_instance_gomonkey(t *testing.T) {
 	var te *test
